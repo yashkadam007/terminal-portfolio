@@ -10,12 +10,12 @@ const Terminal = () => {
     setOutput([]);
   };
   const commandMap = new Map([
-    ['help', 'Available commands: help, about, clear'],
+    ['hello', 'world!'],
     ['about', 'This is some information about me.'],
   ]);
 
   useEffect(() => {
-    setOutput(['> Welcome to my website!']);
+    setOutput(['> Welcome to Yash Kadam\'s interactive website! Type \'explore\' to investigate.']);
   }, []);
 
   const handleInput = (e) => {
@@ -23,9 +23,9 @@ const Terminal = () => {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    const command = input.trim().toLowerCase();
+    const command = input.trim();
     const result = handleCommand(command);
-    setOutput((prevOutput) => [...prevOutput, `> ${input}`, result]);
+    setOutput((prevOutput) => [...prevOutput, `guest@yash.kadam:~$ ${input}`, result]);
     setInput('');
   };
 
@@ -34,10 +34,24 @@ const Terminal = () => {
     if (command === 'clear') {
       clearOutput();
       return '';
+    } else if (command === 'explore') {
+      return (
+        <div>
+          <p>some suggested commands:</p>
+          <p>about</p>
+          <p>email</p>
+          <p>clear</p>
+          <p>rm -rf /</p>
+          <p>hint: there are more commands. feel free to try other keywords!</p>
+        </div>
+      );
+    } else if (command === 'rm -rf /') {
+      window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+      return 'GOTCHA!';
     } else if (commandHandler !== undefined) {
       return commandHandler;
     } else {
-      return `Command not recognized: ${command}`;
+      return `Command ${command} not recognized!`;
 
     }
   };
@@ -46,16 +60,22 @@ const Terminal = () => {
     <div>
       <div>
         {output.map((line, index) => (
-          <p key={index}>{line}</p>
+          <div key={index}>
+            <div className={styles.p}>{line}</div>
+          </div>
         ))}
       </div>
-      <input
-        type="text"
-        value={input}
-        onChange={handleInput}
-        onKeyDown={(e) => e.key === 'Enter' && handleSubmit(e)}
-        className={styles.input}
-      />
+      <div>
+        <span className={styles.p}>guest@yash.kadam:~$ </span>
+        <input
+          type="text"
+          value={input}
+          onChange={handleInput}
+          onKeyDown={(e) => e.key === 'Enter' && handleSubmit(e)}
+          className={styles.input}
+          autoFocus
+        />
+      </div>
     </div>
   );
 };
