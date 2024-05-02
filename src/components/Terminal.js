@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import styles from './Terminal.module.css';
+import { commandMap } from './commands';
 
 const Terminal = () => {
   const [input, setInput] = useState('');
@@ -9,10 +10,6 @@ const Terminal = () => {
   const clearOutput = () => {
     setOutput([]);
   };
-  const commandMap = new Map([
-    ['hello', 'world!'],
-    ['about', 'This is some information about me.'],
-  ]);
 
   useEffect(() => {
     setOutput(['> Welcome to Yash Kadam\'s interactive website! Type \'explore\' to investigate.']);
@@ -25,7 +22,9 @@ const Terminal = () => {
     e.preventDefault();
     const command = input.trim();
     const result = handleCommand(command);
-    setOutput((prevOutput) => [...prevOutput, `guest@yash.kadam:~$ ${input}`, result]);
+    if (command != 'clear') {
+      setOutput((prevOutput) => [...prevOutput, `guest@yash.kadam:~$ ${input}`, result]);
+    }
     setInput('');
   };
 
@@ -34,21 +33,10 @@ const Terminal = () => {
     if (command === 'clear') {
       clearOutput();
       return '';
-    } else if (command === 'explore') {
-      return (
-        <div>
-          <p>some suggested commands:</p>
-          <p>about</p>
-          <p>email</p>
-          <p>clear</p>
-          <p>rm -rf /</p>
-          <p>hint: there are more commands. feel free to try other keywords!</p>
-        </div>
-      );
-    } else if (command === 'rm -rf /') {
-      window.location.href = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
-      return 'GOTCHA!';
-    } else if (commandHandler !== undefined) {
+    } else if (commandHandler && commandHandler.action === 'redirect') {
+      window.location.href = commandHandler.url;
+      return commandHandler.message;
+    } else if (commandHandler != undefined) {
       return commandHandler;
     } else {
       return `Command ${command} not recognized!`;
