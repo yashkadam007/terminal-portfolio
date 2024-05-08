@@ -4,7 +4,7 @@ export const commandMap = new Map([
   ['hi', 'こんにちは'],
   ['about', (
     <div>
-      <p>Hey there! I'm a code-crushing, problem-solving genin on his journey to become hokage in the realm of software engineering. Whether it's crafting sleek web apps that make users go "wow" or diving into the nitty-gritty of backend magic, I've got the skills to pay the bills. Oh, and mobile app development? Yeah, I've got that covered too!</p>
+      <p>Hey there! I'm a code-crushing, problem-solving genin on his journey to become hokage in the realm of software engineering. Whether it's crafting sleek web apps that make users go "wow" or diving into the nitty-gritty of backend magic, I've got the skills. Oh, and mobile app development? Yeah, I've got that covered too!</p>
       <p>I'm on the lookout for some tantalizing challenges in the software world. You know, the kind that makes your brain tingle with excitement and your fingers itch to start typing away lines of code. Got something innovative brewing? I'm your person to turn that idea into a digital reality.</p>
       <p>And when I'm not coding , you'll find me exploring new places, hitting the pavement on a refreshing run, or kicking back with a good movie. Life's all about balance, right?</p>
     </div>
